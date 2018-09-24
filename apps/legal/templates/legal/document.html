@@ -1,0 +1,89 @@
+{% extends 'pages/page_base.html' %}
+
+{% block extra_head %}
+     <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
+{% endblock extra_head %}
+{% block content %}
+<div class="progress" id="progress"><div class="percent">
+
+</div></div>
+    <form method="post" action="/documents/{{document.id}}/">
+        {% csrf_token %}
+
+
+
+            <div class="container form">
+                {% for question in questions %}
+                    {% if question.document_info.question %}
+
+
+                        <div class="field {% if question.document_info.field_type == "short_text" %}is-6{% endif %}">
+                                <label for="{{question.document_info.name}}" class="label is-horizontal is-4 ">{{question.document_info.question}}</label>
+
+                                <div class="control">
+                                    {% if question.document_info.field_type == "textarea" %}
+                                        <textarea class="input textarea" type="{{question.document_info.field_type}}" name="{{question.document_info.name}}" value="{% if question.answer %}{{question.answer}}{% endif %}"></textarea>
+                                    {% else %}
+                                        <input required="required" class="input " type="{{question.document_info.field_type}}"
+                                        {% if question.document_info.field_type == 'date' %}
+                                        data-validation="date"
+                                        {% endif %} name="{{question.document_info.name}}" value="{% if question.answer %}{{question.answer}}{% endif %}"/>
+                                    {% endif %}
+
+                                </div>
+
+                        </div>
+
+
+                    {% endif %}
+
+                {% endfor %}
+                <div class="field">
+
+                        <label for="DocumentSubmit" class="label is-size-5">Finished?</label>
+
+
+
+                            <div class="control">
+                                <input name="DocumentSubmit" type="submit" class="submit button is-primary has-background-primary"></input>
+
+                            </div>
+
+                </div>
+
+
+
+
+    </div>
+
+</form>
+
+{% endblock content %}
+{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<script>
+window.onload = function onLoad() {
+  var circle = new ProgressBar.Circle("#progress", {
+    color: "#FCB03C",
+    duration: 1000,
+    easing: "easeInOut"
+  });
+
+  $("input").focus(function() {
+    var filled = $("input").filter(function() {
+      return $(this).val();
+    }).length;
+    var total = $("input").length;
+
+    circle.animate(filled / total);
+    console.log($('div#progress').find('#percent'))
+    $('div#progress').find('#percent').html(filled / total);
+  });
+};
+
+
+
+
+</script>
+
+{% endblock %}

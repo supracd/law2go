@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock title %}Site Name</title>
+
+        <meta http-equiv="X-UA-Compatible" content="chrome=IE7" />
+
+        <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+         {% block opengraph %}{% endblock opengraph %}
+
+        <link rel="stylesheet" href="{% static 'css/print.css' %}" media="print"/>
+        <link rel="stylesheet" href="{% static 'css/screen.css' %}" media="screen, projection"/>
+
+        <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+        <script src="{% static 'js/modernizr.custom.74326.js' %}"></script>
+
+            <script type="text/javascript" src="{% static 'js/bulma-steps.min.js' %}"></script>
+
+        {% comment %}
+            Link site specific js and css here
+        {% endcomment %}
+        {% block extra_head %}{% endblock extra_head %}
+    </head>
+    <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+        {% include "_google_analytics.inc.html"%}
+        <section class="hero is-medium is-primary is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  {% block page_title %}Law2Go{% endblock page_title %}
+                </h1>
+                <h2 class="subtitle">
+                  {% block page_subtitle %}Primary bold subtitle{% endblock page_subtitle %}
+                </h2>
+              </div>
+            </div>
+          </section>
+
+    <main id="site-main" role="main">
+<section class="section">
+    <div class="container">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+
+</section>
+
+
+
+
+        </main>
+        <footer class="main-footer">
+
+        </footer>
+     {% block extra_js %}{% endblock extra_js %}
+    </body>
+</html>

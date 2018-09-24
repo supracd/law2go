@@ -1,0 +1,59 @@
+
+
+
+.step-marker.final{
+    background: transparent!important;
+    stroke: #b5b5b5;
+
+}
+.step-marker.final.is-active{
+    animation: flyaway 2s;
+}
+@keyframes flyaway {
+  0%   { transform: rotate(10deg);
+         top: 13px;
+         right: 25px;
+         height: 30px; }
+  5%   { transform: rotate(10deg);
+         top: 13px;
+         right: 0px;
+         height: 30px; }
+  20%   { transform: rotate(-20deg);
+          top: 13px;
+          right: -130px;
+          height: 45px; }
+  40%   { transform: rotate(10deg);
+          top: -40px;
+          right: -280px;
+          opacity: 1; }
+  100% { transform: rotate(60deg);
+         top: -200px;
+         right: -1000px;
+         height: 0;
+         opacity: 0; }
+}
+.document-card{
+    display: inline-block;
+    width: 20%;
+    padding: 1em;
+    margin: 1em;
+}
+
+div#progress{
+    position: fixed;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    padding:20px;
+}
+
+// $primary:#CD6066;
+// $info:#CCA591;
+// $success:#868D8A;
+
+//$light:#F5F5F4;
+//$dark:#383337;
+@import 'node_modules/bulma/bulma.sass';
+
+// Import Extensions
+@import "node_modules/bulma-extensions/bulma-steps/dist/css/bulma-steps.sass";

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<p><a class="btn btn-default" href="{% url 'legal_redux_documentinfo_list' %}">DocumentInfo Listing</a></p>
+<table class="table">
+<tr><td>name</td><td>{{ object.name }}</td></tr>
+<tr><td>question</td><td>{{ object.question }}</td></tr>
+<tr><td>field_type</td><td>{{ object.field_type }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit DocumentInfo</a>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+.DS_STORE
+.DS_Store
+*~
+*.pyc
+.svn/*
+uploads/
+.coverage
+.env
+*.sqlite
+node_modules/*

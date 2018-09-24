@@ -1,0 +1,79 @@
+"use strict";
+
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var sass = require('gulp-sass');
+var watch = require('gulp-watch');
+var autoprefixer = require('gulp-autoprefixer');
+var minifycss = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
+var pixrem = require('gulp-pixrem');
+var imagemin = require('gulp-imagemin');
+var plumber = require('gulp-plumber');
+var notify = require('gulp-notify');
+
+var browserSync = require('browser-sync').create();
+var reload      = browserSync.reload;
+// Directories
+var sourcemaps_dir = '../maps'
+var sass_dir = 'assets/sass/**/*.scss'
+var css_dir = 'assets/css/'
+var image_dir = 'assets/images/**/*.*'
+var js_dir = 'assets/js/'
+var templates_dir = 'templates/**/*.*'
+
+var autoprefixerOptions = {
+  browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
+};
+
+var onError = function(err) {
+    notify.onError({
+      title:    "Gulp error in " + err.plugin,
+      message:  err.toString()
+    })(err);
+    this.emit('end');
+}
+
+// Compress Images
+gulp.task('imagemin', function() {
+    gulp.src(image_dir)
+        .pipe(imagemin())
+        .pipe(gulp.dest('assets/images'))  // Write to same directory as source. This seems to work
+});
+
+// Live Reload
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        proxy: "127.0.0.1:8000",
+        watch: true,
+    });
+});
+
+
+// Compile SASS
+gulp.task('sass', function() {
+    gulp.src([sass_dir])
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer(autoprefixerOptions))
+        .pipe(pixrem())  // add fallbacks for rem units
+        .pipe(minifycss())
+        .pipe(sourcemaps.write(sourcemaps_dir))
+        .pipe(gulp.dest(css_dir))
+});
+// Watch
+gulp.task('watch', function() {
+    gulp.watch(sass_dir, ['sass'])
+    .on('change', function(event) {
+        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+        reload();
+    });
+    gulp.watch([js_dir, templates_dir], reload);
+
+});
+
+gulp.task('default', ['sass', 'watch', 'browser-sync']);

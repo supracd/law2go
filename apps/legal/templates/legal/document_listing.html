@@ -1,0 +1,61 @@
+{% extends 'pages/page_base.html' %}
+{% block content %}
+    <div class="container">
+        {% if user.is_authenticated %}
+    <div class="tile is-ancestor">
+
+
+            {% for type in document_types %}
+
+
+
+                        <div class="tile is-3 is-parent">
+
+                            <div class="tile is-child">
+                                <p class="title">
+                                    {{type.name}}
+                                </p>
+                                <p class="content">
+                                    {{type.description}}
+                                </p>
+                                <a class="button" href="{% url 'document_create' type.name %}">Create New</a>
+                            </div>
+
+
+                        </div>
+
+
+
+            {% endfor %}
+
+</div>
+<div class="title">Current Documents</div>
+<div class="container">
+    {% for document in user.document_set.all %}
+
+            <div class="document-card card ">
+                <p class="title">
+                    {{document.type.name}}
+                </p>
+                <p class="content">
+                    {{document.type.description}}
+                </p>
+                <a class="button" href="{{ document.get_absolute_url }}">Edit</a>
+            </div>
+
+
+
+
+
+        {% endfor %}
+</div>
+    </div>
+
+
+        {% else %}
+            <h2>Please Log In</h2>
+        {% endif %}
+    </div>
+
+{% endblock content %}
+{% block extra_js %}{% endblock %}
