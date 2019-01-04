@@ -29,3 +29,4 @@ A Django 1.8+ starter project template for typical CJRW web sites.
 
 ### Applications to be installed via pip
 * Text Block - installed as a src package from pip
+# law2go
