@@ -3,7 +3,7 @@ coverage==4.5.1
 crispy-forms-bulma==1.1.4
 dj-database-url==0.5.0
 dj-static==0.0.6
-Django==1.11.15
+Django==1.11.29
 django-admin-sortable2==0.6.21
 django-bulma==0.5.1
 django-coverage==1.2.4
