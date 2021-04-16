@@ -8,7 +8,7 @@ django-admin-sortable2==0.6.21
 django-bulma==0.5.1
 django-coverage==1.2.4
 django-crispy-forms==1.7.2
-django-debug-toolbar==1.9.1
+django-debug-toolbar==1.11.1
 django-dotenv==1.4.2
 django-extensions==2.1.2
 django-filebrowser==3.10.1
