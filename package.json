@@ -24,7 +24,7 @@
     "gulp-watch": "^4.3.11"
   },
   "dependencies": {
-    "browser-sync": "^2.24.6",
+    "browser-sync": "^2.27.10",
     "bulma": "^0.7.1",
     "bulma-extensions": "^2.2.2"
   }
